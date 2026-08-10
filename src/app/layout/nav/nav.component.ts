@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/app/core/services/account.service';
-import { LoginDTO, User } from 'src/app/shared/types/UserDTO';
+import { ToastrService } from 'src/app/core/services/toastr.service';
+import { LoginDTO } from 'src/app/shared/types/UserDTO';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +12,11 @@ import { LoginDTO, User } from 'src/app/shared/types/UserDTO';
 export class NavComponent implements OnInit {
   protected credentials: LoginDTO;
 
-  constructor(protected accountService: AccountService) {
+  constructor(
+    protected accountService: AccountService,
+    private router: Router,
+    private toastr: ToastrService,
+  ) {
     this.credentials = this.createDefaultCredentials();
   }
 
@@ -20,15 +25,17 @@ export class NavComponent implements OnInit {
   login() {
     this.accountService.login(this.credentials).subscribe({
       next: (response) => {
+        this.router.navigateByUrl('/members');
         this.credentials = this.createDefaultCredentials();
       },
-      error: (err) => console.log(err),
-      complete: () => console.log('completed'),
+      error: (err) => this.toastr.error(err.error.message),
+      complete: () => this.toastr.success('تم تسجيل الدخول بنجاح'),
     });
   }
 
   logout() {
     this.accountService.logout();
+    this.router.navigateByUrl('/home');
   }
 
   private createDefaultCredentials(): LoginDTO {

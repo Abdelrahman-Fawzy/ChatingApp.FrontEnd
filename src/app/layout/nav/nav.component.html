@@ -3,12 +3,14 @@
 >
   <div class="flex items-center p-xl-3">
     <a
+      [routerLink]="'/home'"
+      routerLinkActive="text-accent"
       class="text-white border-r-white border-r-2 flex items-center gap-2 pr-5 mr-5 max-h-16"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        fill="#FFF"
+        fill="currentColor"
         class="size-6"
       >
         <path
@@ -17,10 +19,13 @@
       </svg>
       <span class="text-uppercase font-semibold text-xl">Chating App</span>
     </a>
-    <nav class="flex items-center gap-3 text-white text-lg">
-      <a>Matches</a>
-      <a>Links</a>
-      <a>Messages</a>
+    <nav
+      class="flex items-center gap-3 text-white text-lg"
+      *ngIf="accountService.currentUser()"
+    >
+      <a [routerLink]="'/members'" routerLinkActive="text-accent">Matches</a>
+      <a [routerLink]="'/links'" routerLinkActive="text-accent">Links</a>
+      <a [routerLink]="'/messages'" routerLinkActive="text-accent">Messages</a>
     </nav>
     <div class="flex items-center gap-6 ml-auto">
       <ng-container *ngIf="accountService.currentUser() as currentUser$">

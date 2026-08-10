@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './core/services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,11 @@ export class AppComponent implements OnInit {
   users: any;
 
   constructor(
-    private http: HttpClient,
     private accountService: AccountService,
+    protected router: Router,
   ) {}
 
   ngOnInit() {
-    this.getUsers();
     this.setCurrentUser();
   }
 
@@ -26,17 +26,6 @@ export class AppComponent implements OnInit {
 
     const user = JSON.parse(userString);
     this.accountService.currentUser.set(user);
-  }
-
-  getUsers() {
-    return this.http.get<any>(`https://localhost:5001/api/Members`).subscribe({
-      next: (response) => {
-        this.users = response;
-        console.log(response);
-      },
-      error: (err) => console.log(err),
-      complete: () => console.log('Done'),
-    });
   }
 
   trackByUserId(index: number, user: any): number {

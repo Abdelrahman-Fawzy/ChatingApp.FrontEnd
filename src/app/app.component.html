@@ -1,3 +1,10 @@
 <app-nav />
-
-<app-home></app-home>
+<div
+  class="mt-24 container px-8 mx-auto"
+  [class.mt-24]="router.url != '/home'"
+  [class.container]="router.url != '/home'"
+  [class.px-8]="router.url != '/home'"
+  [class.mx-auto]="router.url != '/home'"
+>
+  <router-outlet />
+</div>
