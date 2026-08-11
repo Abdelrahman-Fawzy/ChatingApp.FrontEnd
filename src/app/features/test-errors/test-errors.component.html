@@ -1,0 +1,23 @@
+<div class="flex justify-center gap-3 pt-10">
+  <button class="btn btn-neutral" (click)="get401Error()">
+    Test 401 Error
+  </button>
+  <button class="btn btn-accent" (click)="get404Error()">Test 404 Error</button>
+  <button class="btn btn-secondary" (click)="get400Error()">
+    Test 400 Error
+  </button>
+  <button class="btn btn-success" (click)="get500Error()">
+    Test 500 Error
+  </button>
+  <button class="btn btn-info" (click)="getValidationError()">
+    Test validation Error
+  </button>
+</div>
+
+<ng-container *ngIf="validationErrors().length > 0">
+  <div class="card bg-base-300 flex mt-5 rounded-2xl w-1/2 p-3 mx-auto">
+    <ul class="list-none flex flex-col text-red-600 space-y-2">
+      <li *ngFor="let error of validationErrors()">{{ error }}</li>
+    </ul>
+  </div>
+</ng-container>

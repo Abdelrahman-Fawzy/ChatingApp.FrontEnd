@@ -6,6 +6,9 @@ import { MemberDetailsComponent } from './features/members/member-details/member
 import { LinksComponent } from './features/links/links.component';
 import { MessagesComponent } from './features/messages/messages.component';
 import { authGuard } from './core/guards/auth.guard';
+import { TestErrorsComponent } from './features/test-errors/test-errors.component';
+import { NotFoundComponent } from './shared/errors/not-found/not-found.component';
+import { ServerErrorComponent } from './shared/errors/server-error/server-error.component';
 
 const routes: Routes = [
   {
@@ -36,8 +39,20 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'errors',
+    component: TestErrorsComponent,
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+  },
+  {
+    path: 'server-error',
+    component: ServerErrorComponent,
+  },
+  {
     path: '**',
-    redirectTo: '/home',
+    component: TestErrorsComponent,
   },
 ];
 

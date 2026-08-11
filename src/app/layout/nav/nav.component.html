@@ -19,13 +19,15 @@
       </svg>
       <span class="text-uppercase font-semibold text-xl">Chating App</span>
     </a>
-    <nav
-      class="flex items-center gap-3 text-white text-lg"
-      *ngIf="accountService.currentUser()"
-    >
-      <a [routerLink]="'/members'" routerLinkActive="text-accent">Matches</a>
-      <a [routerLink]="'/links'" routerLinkActive="text-accent">Links</a>
-      <a [routerLink]="'/messages'" routerLinkActive="text-accent">Messages</a>
+    <nav class="flex items-center gap-3 text-white text-lg">
+      <ng-container *ngIf="accountService.currentUser()">
+        <a [routerLink]="'/members'" routerLinkActive="text-accent">Matches</a>
+        <a [routerLink]="'/links'" routerLinkActive="text-accent">Links</a>
+        <a [routerLink]="'/messages'" routerLinkActive="text-accent"
+          >Messages</a
+        >
+      </ng-container>
+      <a [routerLink]="'/errors'" routerLinkActive="text-accent">Errors</a>
     </nav>
     <div class="flex items-center gap-6 ml-auto">
       <ng-container *ngIf="accountService.currentUser() as currentUser$">
