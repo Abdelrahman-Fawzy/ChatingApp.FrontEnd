@@ -16,6 +16,13 @@ import { TestErrorsComponent } from './features/test-errors/test-errors.componen
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { NotFoundComponent } from './shared/errors/not-found/not-found.component';
 import { ServerErrorComponent } from './shared/errors/server-error/server-error.component';
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { MemberCardComponent } from './features/members/member-card/member-card.component';
+import { AgePipe } from './shared/pipes/age.pipe';
+import { MemberProfileComponent } from './features/members/member-profile/member-profile.component';
+import { MemberPhotosComponent } from './features/members/member-photos/member-photos.component';
+import { MemberMessagesComponent } from './features/members/member-messages/member-messages.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -30,12 +37,28 @@ import { ServerErrorComponent } from './shared/errors/server-error/server-error.
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
+    MemberCardComponent,
+    AgePipe,
+    MemberProfileComponent,
+    MemberPhotosComponent,
+    MemberMessagesComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    DatePipe,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
       multi: true,
     },
   ],

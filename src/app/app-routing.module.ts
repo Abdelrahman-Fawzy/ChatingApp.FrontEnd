@@ -9,6 +9,10 @@ import { authGuard } from './core/guards/auth.guard';
 import { TestErrorsComponent } from './features/test-errors/test-errors.component';
 import { NotFoundComponent } from './shared/errors/not-found/not-found.component';
 import { ServerErrorComponent } from './shared/errors/server-error/server-error.component';
+import { MemberProfileComponent } from './features/members/member-profile/member-profile.component';
+import { MemberPhotosComponent } from './features/members/member-photos/member-photos.component';
+import { MemberMessagesComponent } from './features/members/member-messages/member-messages.component';
+import { memberResolver } from './features/members/member.resolver';
 
 const routes: Routes = [
   {
@@ -27,6 +31,22 @@ const routes: Routes = [
       {
         path: 'members/:id',
         component: MemberDetailsComponent,
+        resolve: { member: memberResolver },
+        runGuardsAndResolvers: 'always',
+        children: [
+          { path: '', redirectTo: 'profile', pathMatch: 'full' },
+          {
+            path: 'profile',
+            component: MemberProfileComponent,
+            title: 'Profile',
+          },
+          { path: 'photos', component: MemberPhotosComponent, title: 'Photos' },
+          {
+            path: 'messages',
+            component: MemberMessagesComponent,
+            title: 'Messages',
+          },
+        ],
       },
       {
         path: 'links',

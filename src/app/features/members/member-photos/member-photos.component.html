@@ -1,0 +1,13 @@
+<ng-container *ngIf="photos">
+  <div
+    *ngIf="photos.length > 0"
+    class="grid grid-cols-4 auto-rows-min gap-3 p-5 h-[65vh] overflow-auto"
+  >
+    <img
+      *ngFor="let photo of photos; trackBy: trackByPhotoId"
+      [src]="photo.url"
+      alt="photo of member"
+      class="w-full rounded-lg"
+    />
+  </div>
+</ng-container>
