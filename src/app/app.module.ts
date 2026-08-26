@@ -23,6 +23,7 @@ import { MemberProfileComponent } from './features/members/member-profile/member
 import { MemberPhotosComponent } from './features/members/member-photos/member-photos.component';
 import { MemberMessagesComponent } from './features/members/member-messages/member-messages.component';
 import { DatePipe } from '@angular/common';
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,11 @@ import { DatePipe } from '@angular/common';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true,
     },
   ],

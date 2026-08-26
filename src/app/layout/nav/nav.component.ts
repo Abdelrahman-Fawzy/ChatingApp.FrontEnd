@@ -4,6 +4,7 @@ import { AccountService } from 'src/app/core/services/account.service';
 import { ToastrService } from 'src/app/core/services/toastr.service';
 import { LoginDTO } from 'src/app/shared/types/UserDTO';
 import { themes } from '../themes';
+import { BusyService } from 'src/app/core/services/busy.service';
 
 @Component({
   selector: 'app-nav',
@@ -21,6 +22,7 @@ export class NavComponent implements OnInit {
     protected accountService: AccountService,
     private router: Router,
     private toastr: ToastrService,
+    protected busyService: BusyService,
   ) {
     this.credentials = this.createDefaultCredentials();
   }

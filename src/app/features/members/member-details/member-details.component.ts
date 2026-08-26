@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { AccountService } from 'src/app/core/services/account.service';
+import { MemberService } from 'src/app/core/services/member.service';
 import { Member } from 'src/app/shared/types/member';
 
 @Component({
@@ -11,19 +13,20 @@ import { Member } from 'src/app/shared/types/member';
 export class MemberDetailsComponent implements OnInit {
   member: Member = {} as Member;
   title: string | undefined = 'Profile';
+  isCurrentUser: boolean = false;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-  ) {}
+    private accountService: AccountService,
+    protected memberService: MemberService,
+  ) {
+    this.isCurrentUser =
+      this.accountService.currentUser()?.id ===
+      this.activatedRoute.snapshot.paramMap.get('id');
+  }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe({
-      next: (data: any) => {
-        this.member = data.member;
-      },
-    });
-
     this.setTitle();
 
     this.router.events

@@ -29,6 +29,11 @@
       </ng-container>
       <a [routerLink]="'/errors'" routerLinkActive="text-accent">Errors</a>
     </nav>
+
+    <span
+      class="loading loading-spinner text-accent mx-3"
+      *ngIf="busyService.busyRequestCount() > 0"
+    ></span>
     <div class="flex items-center gap-6 ml-auto">
       <div class="dropdown mr-5 dropdown-end">
         <button
@@ -78,7 +83,11 @@
               tabindex="0"
               class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
             >
-              <li><a>Edit Profile</a></li>
+              <li>
+                <a routerLink="members/{{ currentUser$.id }}/profile"
+                  >Edit Profile</a
+                >
+              </li>
               <li><button (click)="logout()">Logout</button></li>
             </ul>
           </div>

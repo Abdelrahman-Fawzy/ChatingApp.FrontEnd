@@ -33,7 +33,7 @@ export class AccountService {
     );
   }
 
-  private setCurrentUser(user: User | null) {
+  setCurrentUser(user: User | null) {
     this.currentUser.set(user as User);
     localStorage.setItem('user', JSON.stringify(user));
   }
