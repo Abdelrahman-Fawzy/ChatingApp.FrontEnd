@@ -24,6 +24,9 @@ import { MemberPhotosComponent } from './features/members/member-photos/member-p
 import { MemberMessagesComponent } from './features/members/member-messages/member-messages.component';
 import { DatePipe } from '@angular/common';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+import { ImageUploadComponent } from './shared/components/image-upload/image-upload.component';
+import { StarButtonComponent } from './shared/components/star-button/star-button.component';
+import { DeleteButtonComponent } from './shared/components/delete-button/delete-button.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
     MemberProfileComponent,
     MemberPhotosComponent,
     MemberMessagesComponent,
+    ImageUploadComponent,
+    StarButtonComponent,
+    DeleteButtonComponent,
   ],
   imports: [
     BrowserModule,

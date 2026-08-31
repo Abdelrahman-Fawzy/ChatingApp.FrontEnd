@@ -1,13 +1,43 @@
-<ng-container *ngIf="photos">
+<ng-container *ngIf="!memberService.editMode() && photos; else uploadPhoto">
   <div
     *ngIf="photos.length > 0"
     class="grid grid-cols-4 auto-rows-min gap-3 p-5 h-[65vh] overflow-auto"
   >
-    <img
-      *ngFor="let photo of photos; trackBy: trackByPhotoId"
-      [src]="photo.url"
-      alt="photo of member"
-      class="w-full rounded-lg"
-    />
+    <ng-container *ngFor="let photo of photos; trackBy: trackByPhotoId">
+      <div class="relative">
+        <img
+          [src]="photo.url"
+          alt="photo of member"
+          class="w-full rounded-lg"
+        />
+        <ng-container
+          *ngIf="
+            accountService.currentUser()?.id === memberService.member()?.id
+          "
+        >
+          <app-star-button
+            [disabled]="photo.url == memberService.member()?.imageUrl"
+            [selected]="photo.url == memberService.member()?.imageUrl"
+            (clickEvent)="setMainPhoto(photo)"
+            class="absolute top-0 right-0"
+          ></app-star-button>
+          <app-delete-button
+            [disabled]="photo.url == memberService.member()?.imageUrl"
+            (clickEvent)="deletePhoto(photo)"
+            class="absolute top-0 left-0"
+          ></app-delete-button>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
+  <p *ngIf="photos.length == 0" class="text-center text-gray-500">
+    No photos available
+  </p>
 </ng-container>
+
+<ng-template #uploadPhoto>
+  <app-image-upload
+    (uploadFile)="onUploadImage($event)"
+    [loading]="loading()"
+  ></app-image-upload>
+</ng-template>

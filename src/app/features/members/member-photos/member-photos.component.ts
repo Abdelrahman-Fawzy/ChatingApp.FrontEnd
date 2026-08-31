@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AccountService } from 'src/app/core/services/account.service';
 import { MemberService } from 'src/app/core/services/member.service';
-import { Photo } from 'src/app/shared/types/member';
+import { Member, Photo } from 'src/app/shared/types/member';
 
 @Component({
   selector: 'app-member-photos',
@@ -10,11 +11,13 @@ import { Photo } from 'src/app/shared/types/member';
 })
 export class MemberPhotosComponent implements OnInit {
   photos: Photo[] = [];
+  loading = signal<boolean>(false);
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private memberService: MemberService,
+    protected memberService: MemberService,
+    protected accountService: AccountService,
   ) {}
 
   ngOnInit(): void {
@@ -32,5 +35,46 @@ export class MemberPhotosComponent implements OnInit {
 
   trackByPhotoId(index: number, photo: Photo): number {
     return photo.id;
+  }
+
+  onUploadImage(file: File) {
+    this.loading.set(true);
+    this.memberService.uploadPhoto(file).subscribe({
+      next: (photo: Photo) => {
+        this.loading.set(false);
+        this.memberService.editMode.set(false);
+        this.photos = [...this.photos, photo];
+      },
+      error: (error) => {
+        console.log('Error uploading image: ', error);
+        this.loading.set(false);
+      },
+    });
+  }
+
+  setMainPhoto(photo: Photo) {
+    this.memberService.setMainPhoto(photo.id).subscribe({
+      next: () => {
+        const currentUser = this.accountService.currentUser();
+        if (currentUser) currentUser.imageURL = photo.url;
+        this.accountService.setCurrentUser(currentUser);
+        this.memberService.member.update(
+          (member) =>
+            ({
+              ...member,
+              imageUrl: photo.url,
+            }) as Member,
+        );
+      },
+    });
+  }
+
+  deletePhoto(photo: Photo) {
+    this.memberService.deletePhoto(photo.id).subscribe({
+      next: () => {
+        const photoIndex = this.photos.indexOf(photo);
+        this.photos.splice(photoIndex, 1);
+      },
+    });
   }
 }
