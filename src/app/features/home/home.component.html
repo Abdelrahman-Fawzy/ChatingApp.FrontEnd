@@ -20,7 +20,11 @@
 
         <div class="flex items-center gap-3">
           <!-- اربط الزرار بـ (click) علشان ينادي الميثود -->
-          <button (click)="toggleRegister()" class="btn btn-primary">
+          <button
+            (click)="toggleRegister()"
+            class="btn btn-primary"
+            *ngIf="!accountService.currentUser()"
+          >
             Register
           </button>
           <button class="btn btn-info text-white">Learn More</button>

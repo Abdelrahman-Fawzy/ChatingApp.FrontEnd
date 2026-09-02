@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavComponent } from './layout/nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './features/home/home.component';
 import { RegisterComponent } from './features/account/register/register.component';
 import { MembersListComponent } from './features/members/members-list/members-list.component';
@@ -27,6 +27,7 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { ImageUploadComponent } from './shared/components/image-upload/image-upload.component';
 import { StarButtonComponent } from './shared/components/star-button/star-button.component';
 import { DeleteButtonComponent } from './shared/components/delete-button/delete-button.component';
+import { InputTextComponent } from './shared/components/input-text/input-text.component';
 
 @NgModule({
   declarations: [
@@ -49,12 +50,14 @@ import { DeleteButtonComponent } from './shared/components/delete-button/delete-
     ImageUploadComponent,
     StarButtonComponent,
     DeleteButtonComponent,
+    InputTextComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     DatePipe,
   ],
   providers: [

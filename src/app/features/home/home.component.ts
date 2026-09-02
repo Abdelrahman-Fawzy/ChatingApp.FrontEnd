@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { AccountService } from 'src/app/core/services/account.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,8 @@ import { Component, signal } from '@angular/core';
 })
 export class HomeComponent {
   registerMode = signal<boolean>(false);
+
+  constructor(protected accountService: AccountService) {}
 
   toggleRegister() {
     this.registerMode.set(!this.registerMode());

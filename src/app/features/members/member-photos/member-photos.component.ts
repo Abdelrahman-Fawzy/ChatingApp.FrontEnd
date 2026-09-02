@@ -44,6 +44,8 @@ export class MemberPhotosComponent implements OnInit {
         this.loading.set(false);
         this.memberService.editMode.set(false);
         this.photos = [...this.photos, photo];
+        if (!this.memberService.member()?.imageUrl)
+          this.setLocalPhotoAsMain(photo);
       },
       error: (error) => {
         console.log('Error uploading image: ', error);
@@ -55,18 +57,22 @@ export class MemberPhotosComponent implements OnInit {
   setMainPhoto(photo: Photo) {
     this.memberService.setMainPhoto(photo.id).subscribe({
       next: () => {
-        const currentUser = this.accountService.currentUser();
-        if (currentUser) currentUser.imageURL = photo.url;
-        this.accountService.setCurrentUser(currentUser);
-        this.memberService.member.update(
-          (member) =>
-            ({
-              ...member,
-              imageUrl: photo.url,
-            }) as Member,
-        );
+        this.setLocalPhotoAsMain(photo);
       },
     });
+  }
+
+  setLocalPhotoAsMain(photo: Photo) {
+    const currentUser = this.accountService.currentUser();
+    if (currentUser) currentUser.imageURL = photo.url;
+    this.accountService.setCurrentUser(currentUser);
+    this.memberService.member.update(
+      (member) =>
+        ({
+          ...member,
+          imageUrl: photo.url,
+        }) as Member,
+    );
   }
 
   deletePhoto(photo: Photo) {
