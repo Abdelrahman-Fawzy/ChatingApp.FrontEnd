@@ -1,5 +1,35 @@
-<div class="grid grid-cols-5 gap-6">
-  <ng-container *ngFor="let member of members; trackBy: trackByMemberId">
-    <app-member-card [member]="member"></app-member-card>
-  </ng-container>
+<div class="flex flex-col w-full">
+  <div class="flex justify-between items-center">
+    <div class="flex gap-3 items-center">
+      <button (click)="openModal()" class="btn btn-primary">
+        Select Filters
+      </button>
+      <button (click)="resetFilters()" class="btn btn-neutral">
+        Reset Filters
+      </button>
+    </div>
+    <ng-container *ngIf="paginatedResult?.metadata as metadata">
+      <app-paginator
+        [pageNumber]="metadata.currentPage"
+        [totalCount]="metadata.totalCount"
+        [totalPages]="metadata.totalPages"
+        [pageSize]="metadata.pageSize"
+        (pageChange)="onPageChange($event)"
+      />
+    </ng-container>
+  </div>
+
+  <div class="grid grid-cols-5 gap-6">
+    <ng-container *ngFor="let member of members; trackBy: trackByMemberId">
+      <app-member-card [member]="member"></app-member-card>
+    </ng-container>
+  </div>
 </div>
+
+<app-modal-filter
+  #filterModal
+  [hidden]="!paginatedResult"
+  (closeModal)="onClose()"
+  (filterChanged)="onFilterChange($event)"
+  [memberParams]="memberParams"
+/>

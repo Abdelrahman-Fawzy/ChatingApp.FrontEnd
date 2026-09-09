@@ -28,6 +28,9 @@ import { ImageUploadComponent } from './shared/components/image-upload/image-upl
 import { StarButtonComponent } from './shared/components/star-button/star-button.component';
 import { DeleteButtonComponent } from './shared/components/delete-button/delete-button.component';
 import { InputTextComponent } from './shared/components/input-text/input-text.component';
+import { PaginatorComponent } from './shared/components/paginator/paginator.component';
+import { ModalFilterComponent } from './shared/components/modal-filter/modal-filter.component';
+import { TimeAgoPipe } from './shared/pipes/time-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { InputTextComponent } from './shared/components/input-text/input-text.co
     StarButtonComponent,
     DeleteButtonComponent,
     InputTextComponent,
+    PaginatorComponent,
+    ModalFilterComponent,
+    TimeAgoPipe,
   ],
   imports: [
     BrowserModule,

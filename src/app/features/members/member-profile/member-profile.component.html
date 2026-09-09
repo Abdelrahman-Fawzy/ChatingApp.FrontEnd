@@ -6,9 +6,7 @@
     </div>
     <div class="flex gap-3">
       <span class="font-semibold">Last active:</span>
-      <span>{{
-        memberService.member()?.lastActive | date: "dd MMM yyyy h:mm a"
-      }}</span>
+      <span>{{ memberService.member()?.lastActive ?? "" | timeAgo }}</span>
     </div>
     <h3 class="text-lg font-semibold text-primary">
       About {{ memberService.member()?.displayName }}
