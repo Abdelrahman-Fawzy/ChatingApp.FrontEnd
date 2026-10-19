@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { MembersListComponent } from './features/members/members-list/members-list.component';
 import { MemberDetailsComponent } from './features/members/member-details/member-details.component';
-import { LinksComponent } from './features/links/links.component';
 import { MessagesComponent } from './features/messages/messages.component';
 import { authGuard } from './core/guards/auth.guard';
 import { TestErrorsComponent } from './features/test-errors/test-errors.component';
@@ -14,6 +13,7 @@ import { MemberPhotosComponent } from './features/members/member-photos/member-p
 import { MemberMessagesComponent } from './features/members/member-messages/member-messages.component';
 import { memberResolver } from './features/members/member.resolver';
 import { preventUnsavedChangesGuard } from './core/guards/prevent-unsaved-changes.guard';
+import { LikesComponent } from './features/likes/likes.component';
 
 const routes: Routes = [
   {
@@ -51,8 +51,8 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'links',
-        component: LinksComponent,
+        path: 'likes',
+        component: LikesComponent,
       },
       {
         path: 'messages',

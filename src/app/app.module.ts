@@ -10,7 +10,6 @@ import { HomeComponent } from './features/home/home.component';
 import { RegisterComponent } from './features/account/register/register.component';
 import { MembersListComponent } from './features/members/members-list/members-list.component';
 import { MemberDetailsComponent } from './features/members/member-details/member-details.component';
-import { LinksComponent } from './features/links/links.component';
 import { MessagesComponent } from './features/messages/messages.component';
 import { TestErrorsComponent } from './features/test-errors/test-errors.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
@@ -31,6 +30,7 @@ import { InputTextComponent } from './shared/components/input-text/input-text.co
 import { PaginatorComponent } from './shared/components/paginator/paginator.component';
 import { ModalFilterComponent } from './shared/components/modal-filter/modal-filter.component';
 import { TimeAgoPipe } from './shared/pipes/time-ago.pipe';
+import { LikesComponent } from './features/likes/likes.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,6 @@ import { TimeAgoPipe } from './shared/pipes/time-ago.pipe';
     RegisterComponent,
     MembersListComponent,
     MemberDetailsComponent,
-    LinksComponent,
     MessagesComponent,
     TestErrorsComponent,
     NotFoundComponent,
@@ -57,6 +56,7 @@ import { TimeAgoPipe } from './shared/pipes/time-ago.pipe';
     PaginatorComponent,
     ModalFilterComponent,
     TimeAgoPipe,
+    LikesComponent,
   ],
   imports: [
     BrowserModule,

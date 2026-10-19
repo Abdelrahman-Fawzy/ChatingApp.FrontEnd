@@ -22,7 +22,7 @@
     <nav class="flex items-center gap-3 text-white text-lg">
       <ng-container *ngIf="accountService.currentUser()">
         <a [routerLink]="'/members'" routerLinkActive="text-accent">Matches</a>
-        <a [routerLink]="'/links'" routerLinkActive="text-accent">Links</a>
+        <a [routerLink]="'/likes'" routerLinkActive="text-accent">Likes</a>
         <a [routerLink]="'/messages'" routerLinkActive="text-accent"
           >Messages</a
         >

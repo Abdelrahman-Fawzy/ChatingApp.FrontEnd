@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './core/services/account.service';
 import { Router } from '@angular/router';
+import { InitService } from './core/services/init.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,8 @@ export class AppComponent implements OnInit {
   users: any;
 
   constructor(
-    private accountService: AccountService,
     protected router: Router,
+    protected initService: InitService,
   ) {}
 
   ngOnInit() {
@@ -21,14 +22,6 @@ export class AppComponent implements OnInit {
   }
 
   setCurrentUser() {
-    const userString = localStorage.getItem('user');
-    if (!userString) return;
-
-    const user = JSON.parse(userString);
-    this.accountService.currentUser.set(user);
-  }
-
-  trackByUserId(index: number, user: any): number {
-    return user.id;
+    this.initService.init();
   }
 }
